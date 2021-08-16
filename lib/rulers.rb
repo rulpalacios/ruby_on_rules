@@ -2,6 +2,7 @@ require "rulers/version"
 require "rulers/routing"
 require "rulers/util"
 require "rulers/dependencies"
+require "rulers/controller"
 
 module Rulers
   class Application
@@ -17,14 +18,24 @@ module Rulers
         [text]]
     end
   end
-
+  
   class Controller
-    def initialize(env)
-      @env = env 
+    def controller_name
+      self.class
     end
 
-    def env 
-      @env
+    def user_agent
+      @env[]
+    end
+    def request_start_time
+      # Note: for this, you’ll
+      # need to set @start_time
+      # to Time.now at the beginning
+      # of Application#call().
+      @start_time
+    end
+    def rulers_version
+      Rulers::VERSION
     end
   end
 
